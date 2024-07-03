@@ -5,23 +5,23 @@
 
 @section('style')
 <style>
-    .product-thumb {
-        width: 100%; /* يمكنك ضبط العرض حسب احتياجاتك */
-        height: 250px; /* حدد الارتفاع المطلوب */
-        overflow: hidden;
-        position: relative;
-    }
+    /*.product-thumb {*/
+    /*    width: 100%; !* يمكنك ضبط العرض حسب احتياجاتك *!*/
+    /*    height: 250px; !* حدد الارتفاع المطلوب *!*/
+    /*    overflow: hidden;*/
+    /*    position: relative;*/
+    /*}*/
 
-    .product-thumb img {
-        width: 100%;
-        height: 100%;
-        /* لضمان تناسب العرض مع الصورة */
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        object-fit:fill; /* يضمن ملء الصورة للعنصر بدون تمدد */
-    }
+    /*.product-thumb img {*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*    !* لضمان تناسب العرض مع الصورة *!*/
+    /*    position: absolute;*/
+    /*    top: 50%;*/
+    /*    left: 50%;*/
+    /*    transform: translate(-50%, -50%);*/
+    /*    object-fit:fill; !* يضمن ملء الصورة للعنصر بدون تمدد *!*/
+    /*}*/
 </style>
 @endsection
 
@@ -52,7 +52,7 @@
                                 </div><!-- .nk-block-head -->
                                 <div class="slider-init row" data-slick='{"arrows": false, "slidesToShow": 3,"centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}} ]}'>
                                 @foreach($arrivalProducts as $product)
-                                    <div class="col">
+                                    <div class="col" >
                                         <div class="card card-bordered product-card" style="border-radius: .75rem;">
                                             <div class="product-thumb" >
                                                 <a href="{{route('frontend.product',$product->slug)}}">
