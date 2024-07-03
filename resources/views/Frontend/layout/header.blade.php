@@ -539,7 +539,7 @@
                 </ul><!-- .nk-menu -->
             </div><!-- .nk-header-menu -->
             <div class="nk-header-tools">
-                <ul class="nk-quick-nav">
+                <ul class="nk-quick-nav refresh-cart">
 
                     @guest
                     @else

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\ProductCategories;
 use App\Models\Backend\ProductCoupon;
+use App\Models\Backend\ProductReview;
 use App\Models\Backend\Products;
 use App\Models\Backend\ShippingCompany;
 use App\Models\Backend\Tags;
@@ -30,9 +31,10 @@ class FrontendController extends Controller
 
        $cartListCount = Cart::instance('default')->count();
 
+       $reviews = ProductReview::all();
 //       return  $cartListCount;
 
-        return view('Frontend.index',compact('product_categories','featuredProducts','arrivalProducts','cartListCount'));
+        return view('Frontend.index',compact('product_categories','featuredProducts','arrivalProducts','cartListCount','reviews'));
     }
 
     public function shop($slug = null)

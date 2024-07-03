@@ -16,7 +16,7 @@ return [
     'fast shipping' => 'طلبك يوصل فى اسرع وقت',
     'Secure payment' => 'طرق دفع متنوعه وآمنة',
     'Online support' => 'خدمة عملاء متميزة 24ساعة',
-    'best' => 'أفضل',
+    'new Arrive' => 'وصل حديثا',
     'products' => 'المنتجات',
     'Add to cart' => 'إضافة للسلة',
     'Add To Wishlist' => 'إضافة لقائمة الامنيات',
@@ -32,6 +32,9 @@ return [
     'favorite' => 'الامنيات',
     'my profile' => 'حسابي',
     'sign out' => 'تسجيل الخروج',
+    'best seller' => 'الاكثر مبيعا',
+    'New' => 'جديد',
+    'customers reviews' => 'اراء العملاء',
 
 
 ];
