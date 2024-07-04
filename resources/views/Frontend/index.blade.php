@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                 </div><!-- .nk-block-head -->
-                                <div class="slider-init row" data-slick='{"arrows": false, "slidesToShow": 3,"centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}} ]}'>
+                                <div class="slider-init row" data-slick='{"arrows": false, "slidesToShow": 4,"centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1.5}} ]}'>
                                 @foreach($arrivalProducts as $product)
                                     <div class="col" >
                                         <div class="card card-bordered product-card" style="border-radius: .75rem;">
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                 </div><!-- .nk-block-head -->
-                                <div class="slider-init row" data-slick='{"arrows": false, "slidesToShow": 3,"centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}} ]}'>
+                                <div class="slider-init row" data-slick='{"arrows": false, "slidesToShow": 4,"centerMode": false, "slidesToScroll": 1, "infinite":false, "responsive":[ {"breakpoint": 992,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1.5}} ]}'>
                                     @foreach($featuredProducts as $product)
                                         <div class="col">
                                             <div class="card card-bordered product-card" style="border-radius: .75rem;">
