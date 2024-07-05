@@ -132,6 +132,63 @@
                         </div>
                         <div class="col-12 mt-5">
                             <div class="nk-block nk-block-lg">
+                               <div class="row gy-5">
+                                   <div class="col-md-4">
+                                       <div class="card card-bordered pricing text-center">
+                                           <div class="user-card user-card-s2">
+                                               <div class="user-card user-card-s2">
+                                                   <div class="user-avatar lg bg-black">
+                                                       <span>
+                                                          <em class="fas fa-shipping-fast"></em>
+                                                       </span>
+                                                   </div>
+                                                   <div class="user-info">
+                                                       <h6>توصيل سريع !</h6>
+                                                       <span class="lead-text">اختياراتك الجميلة ستكون معك في أقرب وقت ..</span>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="card card-bordered pricing text-center">
+                                           <div class="user-card user-card-s2">
+                                               <div class="user-card user-card-s2">
+                                                   <div class="user-avatar lg bg-black">
+                                                       <span>
+                                                          <em class="fas fa-globe-asia"></em>
+                                                       </span>
+                                                   </div>
+                                                   <div class="user-info">
+                                                       <h6>أذواق متعددة!</h6>
+                                                       <span class="lead-text">نجوب الأرض بحثًا عن ذوقك الخاص</span>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="card card-bordered pricing text-center">
+                                           <div class="user-card user-card-s2">
+                                               <div class="user-card user-card-s2">
+                                                   <div class="user-avatar lg bg-black">
+                                                       <span>
+                                                          <em class="fas fa-crown"></em>
+                                                       </span>
+                                                   </div>
+                                                   <div class="user-info">
+                                                       <h6>اهتمام رفيع!</h6>
+                                                       <span class="lead-text">نهتم جيدًا بتغليف منتجاتنا لتصل إليك كما اخترتها ..</span>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-5">
+                            <div class="nk-block nk-block-lg">
                                 <div class="nk-block-head">
                                     <div class="nk-block-between g-3">
                                         <div class="nk-block-head-content w-100  align-items-center align-content-center text-center">

@@ -542,6 +542,15 @@
                 <ul class="nk-quick-nav refresh-cart">
 
                     @guest
+                        <li class="dropdown">
+                            <a href="{{route('frontend.cart')}}" >
+                                <div class="user-toggle">
+                                    <div class="user-avatar sm bg-body">
+                                        <span><em class="icon ni ni-user-switch fs-1 text-black"></em></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li><!-- .dropdown -->
                     @else
                     <li class="dropdown user-dropdown">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
