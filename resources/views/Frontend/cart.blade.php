@@ -38,7 +38,7 @@
                                 <div class="card-inner">
                                     <a href="#" class="btn btn-sm btn-icon btn-danger text-white border rounded-pill "  style="position: absolute; top: 15px; left: 15px;"><em class="icon ni ni-cross"></em></a>
                                     <div class="d-flex justify-content-md-between row ">
-                                    <div class="d-inline-flex g2 col-lg-6 col-md-6">
+                                    <div class="d-inline-flex g2 col-lg-6 ">
                                         <div class="user-avatar sq w-100px h-100px">
                                             <span>AB</span>
                                         </div>
@@ -47,7 +47,7 @@
                                             <span class="sub-text">شنطة خوص مستطيل</span>
                                         </div>
                                     </div>
-                                    <div class="d-inline-flex g2 col-lg-6 col-md-6">
+                                    <div class="d-inline-flex g2 col-lg-6">
                                         <div class="w-140px">
                                             <div class="form-control-wrap number-spinner-wrap quantity ">
                                                 <button class="btn btn-icon btn-outline-light number-spinner-btn number-minus qty-down" data-number="minus"><em class="icon ni ni-minus"></em></button>
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5"></div>
+                        <div class="col-lg-5 "></div>
                     </div>
 
                 </div>
