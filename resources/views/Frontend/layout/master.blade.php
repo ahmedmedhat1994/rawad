@@ -43,8 +43,8 @@
             <!-- footer @s -->
         <div class="footer bg-light" id="footer">
         <div class="container py-5 py-md-7">
-            <div class="row g-gs">
-                <div class="col-lg-3 col-md-9 me-auto">
+            <div class="row g-gs ">
+                <div class="col-lg-3 col-md-9 px-5">
                     <div class="widget widget-about">
                         <a href="html/index.html" class="lead-text-lg mb-2">رواد الزى | RAWAD ZAY</a>
                         <span class="sub-text mb-3">شركة رواد الزى للزي الموحد هي أكثر من مجرد شركة . نحن علامة تجارية للملابس المهنية والمدرسية والرسمية تتميز بجودة منتجاتها وخبرة طويلة في مجال صناعة الزي الموحد.
@@ -66,7 +66,7 @@
                     </div><!-- .widget -->
                 </div>
 
-                <div class="col-xl-2 col-lg-3 col-md-8">
+                <div class="col-xl-2 col-lg-3 col-md-8 px-5">
                     <div class="widget">
                         <h6 class="widget-title">تواصل معنا</h6>
                         <ul class="widget-contact row gx-gs">
@@ -84,7 +84,7 @@
             <div class="nk-footer bg-white">
             <div class="container">
                 <div class="nk-footer-wrap">
-                    <div class="nk-footer-copyright"> &copy; الحقوق محفوظة | {{\Carbon\Carbon::now()->format('Y')}} رواد الزي | Rawad Zey
+                    <div class="nk-footer-copyright mb-3"> &copy; الحقوق محفوظة | {{\Carbon\Carbon::now()->format('Y')}} رواد الزي | Rawad Zey
                     </div>
                     <div class="nk-footer-links">
                         <ul class="nav nav-sm">
@@ -117,6 +117,12 @@
 <!-- JavaScript -->
 @include('Frontend.layout.script')
 @yield('script')
+<link rel="stylesheet" href="{{asset('backend/css/editors/summernote.css')}}">
+
+<script src="{{asset('backend/js/libs/editors/summernote.js')}}"></script>
+
+<script src="{{asset('backend/js/editors.js')}}"></script>
+
 </body>
 
 </html>

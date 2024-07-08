@@ -34,6 +34,7 @@ return [
     'sign out' => 'تسجيل الخروج',
     'best seller' => 'الاكثر مبيعا',
     'New' => 'جديد',
+    'back' => 'رجوع',
     'customers reviews' => 'اراء العملاء',
 
 

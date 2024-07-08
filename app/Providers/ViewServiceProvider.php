@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Backend\ProductCategories;
 use App\Models\Backend\Tags;
 use App\Models\Permission;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,9 +40,14 @@ class ViewServiceProvider extends ServiceProvider
                 }
                 $shop_tags_menu = Cache::get('shop_tags_menu');
 
+
+                $cartListCount = Cart::instance('default')->count();
+
+
                 $view->with([
                     'shop_categories_menu' => $shop_categories_menu,
                     'shop_tags_menu' => $shop_tags_menu,
+                    'cartListCount'=>$cartListCount,
                 ]);
             });
         }

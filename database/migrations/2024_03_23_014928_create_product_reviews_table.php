@@ -8,7 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     */
+     **/
     public function up(): void
     {
         Schema::create('product_reviews', function (Blueprint $table) {
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('title');
             $table->text('message');
+            $table->text('replay')->nullable();
             $table->boolean('status')->default(false);
             $table->unsignedTinyInteger('rating')->default(1);
             $table->string('created_by')->nullable();

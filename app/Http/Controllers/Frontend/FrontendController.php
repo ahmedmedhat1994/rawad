@@ -37,7 +37,7 @@ class FrontendController extends Controller
         return view('Frontend.index',compact('product_categories','featuredProducts','arrivalProducts','cartListCount','reviews'));
     }
 
-    public function shop($slug = null)
+    public function shop(Request $request,$slug = null)
     {
         $products = Products::with('firstMedia');
         if ($slug == '') {
@@ -68,7 +68,7 @@ class FrontendController extends Controller
         $products = $products->Active()
             ->HasQuantity()
             ->orderBy('id', 'desc')
-            ->paginate(15);
+            ->paginate(16);
 
         if ($slug != null)
         {
@@ -76,11 +76,14 @@ class FrontendController extends Controller
         }else{
             $categoryName = null;
         }
+        if ($request->ajax()) {
+            return view('Frontend.shop_load', compact('products'))->render();
+        }
 
         return view('Frontend.shop', compact('products','categoryName'));
     }
 
-    public function shop_tag($slug = null)
+    public function shop_tag(Request $request,$slug = null)
     {
         $products = Products::with('firstMedia');
 
@@ -94,7 +97,7 @@ class FrontendController extends Controller
         $products = $products->Active()
             ->HasQuantity()
             ->orderBy('id', 'desc')
-            ->paginate(15);
+            ->paginate(16);
 
         if ($slug != null)
         {
@@ -104,7 +107,9 @@ class FrontendController extends Controller
             $categoryName = null;
         }
 
-
+        if ($request->ajax()) {
+            return view('Frontend.shop_load', compact('products'))->render();
+        }
         return view('Frontend.shop_tag', compact('products','categoryName'));
     }
 
