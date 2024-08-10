@@ -420,11 +420,19 @@
                 },
                 success: function (data) {
                     // $('#quick_view').modal('show');
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: "btn btn-success",
+                            cancelButton: "btn btn-danger",
+                            iconHtml:"ltr"
+                        },
+                        buttonsStyling: false
+                    });
                     const Toast = Swal.mixin({
                         toast: true,
                         position: "top-end",
                         showConfirmButton: false,
-                        timer: 3000,
+                        timer: 30000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                             toast.onmouseenter = Swal.stopTimer;

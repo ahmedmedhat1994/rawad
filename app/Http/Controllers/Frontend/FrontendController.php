@@ -129,13 +129,13 @@ class FrontendController extends Controller
 
     public function cart()
     {
+//        Cart::destroy();
 //        session()->remove('shipping');
         $data['cart_subtotal'] = getNumbers()->get('subtotal');
         $data['cart_tax'] = getNumbers()->get('productTaxes');
         $data['cart_discount'] = getNumbers()->get('discount');
         $data['cart_shipping'] = getNumbers()->get('shipping');
         $data['cart_total'] = getNumbers()->get('total');
-
         return view('frontend.cart',compact('data'));
     }
 
@@ -172,10 +172,10 @@ class FrontendController extends Controller
     public function updateCart(Request $request)
     {
         Cart::instance('default')->update($request->rowId,$request->qty);
+        $cart_subtotal = getNumbers()->get('subtotal');
 
         if (session()->has('coupon'))
         {
-            $cart_subtotal = getNumbers()->get('subtotal');
             $code = session()->get('coupon')['code'];
             $coupon = ProductCoupon::whereCode($code)->first();
             $couponValue = $coupon->discount($cart_subtotal);
