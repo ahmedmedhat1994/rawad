@@ -279,6 +279,8 @@ class FrontendController extends Controller
         $data['cart_shipping'] = getNumbers()->get('shipping');
         $data['cart_total'] = getNumbers()->get('total');
         $data['user_addresses'] = Auth::user()->addresses;
+//        session()->forget('saved_customer_address_id');
+//        session()->forget('saved_shipping_company_id');
         return view('frontend.checkout',compact('data'));
     }
 

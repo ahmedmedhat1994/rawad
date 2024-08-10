@@ -36,6 +36,8 @@ return [
     'New' => 'جديد',
     'back' => 'رجوع',
     'customers reviews' => 'اراء العملاء',
+    'address shipping' => 'عنوان الشحن',
+    'shipping company' => 'شركة الشحن',
 
 
 ];
