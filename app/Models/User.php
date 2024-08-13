@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Backend\Order;
 use App\Models\Backend\ProductReview;
 use App\Models\Backend\UserAddress;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -100,9 +101,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserAddress::class,'user_id');
     }
 
-//    public function orders(): HasMany
-//    {
-//        return $this->hasMany(Order::class);
-//    }
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 
 }
