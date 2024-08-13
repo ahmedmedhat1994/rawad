@@ -38,6 +38,7 @@ return [
     'customers reviews' => 'اراء العملاء',
     'address shipping' => 'عنوان الشحن',
     'shipping company' => 'شركة الشحن',
+    'payment method' => 'الدفع',
 
 
 ];

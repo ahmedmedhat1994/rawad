@@ -26,8 +26,21 @@
 .setup_action{
     cursor: pointer;
 }
-
-
+.logo{
+    max-height: 33px;
+    max-width: 70px;
+    width: 100%;
+}
+#payment_method {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    margin: 0 0 20px;
+    position: relative;
+}
     </style>
 
 </head>
@@ -59,15 +72,17 @@
                                         <span class="lead-text">قيمة خصم كوبون <span> ( {{session()->get('coupon')['code']}} )</span>  </span>
                                         <span class="lead-text">{{$data['cart_discount']}} ر.س  </span>
                                     </div>
+                                    <hr>
+
                                 @endif
-                                <hr>
                                 @if(session()->has('shipping'))
                                     <div class="d-flex justify-content-between mb-3">
                                         <span class="lead-text">تكلفة الشحن  </span>
                                         <span class="lead-text">{{session()->get('shipping')['cost']}} ر.س </span>
                                     </div>
+                                    <hr>
+
                                 @endif
-                                <hr>
                                 <div class="d-flex justify-content-between">
                                     <span class="lead-text">الإجمالي</span>
                                     <span class="lead-text">{{$data['cart_total']}} ر.س  </span>
@@ -94,7 +109,9 @@
                                 </div>
                                 <div id="shipping_address" style="display: none;">
                                     @forelse($data['user_addresses'] as $address)
-                                    <div class="pt-2" style="padding-right: 10px;">
+                                        <hr>
+
+                                        <div class="pt-2" style="padding-right: 10px;">
                                         <div class="custom-control custom-radio">
                                             <input type="radio"
                                                    id="updateUserAddress{{$address->id}}"
@@ -116,7 +133,6 @@
                                             </label>
                                         </div>
                                     </div>
-                                        <hr>
                                     @empty
                                         <span>لا يوجد عناوين مسجلة</span>
                                     @endforelse
@@ -138,9 +154,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="shipping_company" style="display: none;">
+                                <div  id="shipping_company" style="display: none;">
                                     @if(session()->has('shipping_company'))
+                                        <div class="shipping_company">
                                     @forelse(session()->get('shipping_company') as $company)
+                                            <hr>
                                         <div class="pt-2" style="padding-right: 10px;">
                                             <div class="custom-control custom-radio">
                                                 <input type="radio"
@@ -151,7 +169,7 @@
                                                        @if(session()->has('saved_shipping_company_id'))
                                                        {{ session()->get('saved_shipping_company_id') == $company->id ? 'checked' : '' }}
                                                        @endif
-                                                       class="custom-control-input">
+                                                       class="custom-control-input ">
                                                 <label class="custom-control-label"  for="updateShippingCompany{{$company->id}}">
                                                     <b>{{$company->name}}</b><br>
                                                     <small id="company_subtitle{{$company->id}}">
@@ -161,21 +179,76 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <hr>
+
                                     @empty
                                         <span>لا يوجد شركات متاحة مسجلة</span>
                                     @endforelse
+                                        </div>
                                     @endif
                                 </div>
                                 <hr>
+                                <div class="setup_action" id="setup_03">
+                                    <div class="d-flex justify-content-between justify-items-center mb-3">
+                                        <div class="d-inline-flex">
+                                            <div class="user-avatar bg-light">
+                                                <span>3</span>
+                                            </div>
+                                            <div style="margin-right: 15px;">
+                                                <span class="lead-text">{{trans('frontend.payment method')}}</span>
+                                                <span class="sub-text" id="setup_02_subtitle">-</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex  justify-content-center align-items-center ">
+                                            {{--                                        <a href="#" class="btn btn-outline-primary">{{trans('frontend.edit')}}</a>--}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  id="payment_method" style="display: none;">
+                                    @if (session()->has('saved_customer_address_id')  && session()->has('saved_shipping_company_id'))
+                                        @forelse($data['payment_methods'] as $payment_method)
+                                            <hr>
 
+                                            <div class="mt-2 border border-primary rounded p-3 " style="padding-right: 10px; display: block; position: relative; ">
+                                                <div class="d-block justify-content-center justify-items-center text-center custom-control custom-radio">
+                                                    <input type="radio"
+                                                           id="payment-method-{{ $payment_method->id }}"
+                                                           value="{{$payment_method->id}}"
+                                                           name="updatePaymentMethod"
+                                                           {{ session()->get('saved_payment_method_code') == $payment_method->code ? 'checked' : '' }}
+                                                           onclick="updatePaymentMethod({{$payment_method->id}})"
+                                                           class="custom-control-input">
+                                                    <label class="custom-control-label"  for="payment-method-{{ $payment_method->id }}">
+                                                        <img class="logo" src="https://cdn.assets.salla.network/prod/stores/vendor/checkout/images/icons/pay-option-mada.svg" alt="Mada">
+                                                        <br>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @empty
+                                            <span>لا يوجد طرق دفع متاحة </span>
+                                        @endforelse
+                                    @endif
+                                </div>
+
+                                <div class="form-group Action_submit mx-5">
+                                    <a  class="btn {{session()->has('saved_customer_address_id')  && session()->has('saved_shipping_company_id') && session()->has('saved_payment_method_id') ? 'btn-primary' : 'btn-gray' }}   btn-lg btn-block" href="javascript:void(0);" @if(session()->has('saved_customer_address_id')  && session()->has('saved_shipping_company_id') && session()->has('saved_payment_method_id')) onclick="event.preventDefault(); document.getElementById('action-form').submit();"  @endif   >إتمام الطلب</a>
+                                </div>
                             </div>
+
+
+                            @if (session()->has('saved_customer_address_id')  && session()->has('saved_shipping_company_id') && session()->has('saved_payment_method_id'))
+                                    <form  action="{{ route('checkout.payment') }}" method="post" id="action-form" class="d-none">
+                                        @csrf
+                                        <input type="hidden" name="customer_address_id" value="{{ old('customer_address_id', session()->get('saved_customer_address_id') ) }}" class="form-control">
+                                        <input type="hidden" name="shipping_company_id" value="{{ old('shipping_company_id', session()->get('saved_shipping_company_id')) }}" class="form-control">
+                                        <input type="hidden" name="payment_method_id" value="{{ old('payment_method_id', session()->get('saved_payment_method_id')) }}" class="form-control">
+
+                                    </form>
+                            @endif
                         </div>
 
                     </div>
 
 
-                    <a  class="btn btn-primary btn-lg btn-block" id="droped"  href="javascript:void(0)">إتمام الطلب</a>
 
             </div>
 
@@ -197,9 +270,11 @@
 @include('Frontend.layout.script')
 @yield('script')
     <script>
+
         $(document).ready(function() {
             var id_address = $('#shipping_address').find('input[type="radio"]:checked').val();
             var id_company = $('#shipping_company').find('input[type="radio"]:checked').val();
+            var id_payment = $('#payment_method').find('input[type="radio"]:checked').val();
             if (id_address != null)
             {
                 $('#setup_01').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
@@ -229,6 +304,25 @@
                 $('#shipping_company').slideToggle(100);
                 }
             }
+            if (id_payment != null)
+            {
+                if ($('#payment_method').is(':visible')) {
+                    $('#setup_03').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').removeClass('bg-light')
+                }else {
+                    $('#setup_03').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
+                }
+                // $('#setup_03_subtitle').text($('#company_subtitle'+id_payment).text())
+
+            }else {
+                if ($('#payment_method').is(':visible')) {
+                    $('#setup_03').find('.user-avatar').html('<span>3</span>').removeClass('bg-light')
+                }else {
+                    $('#setup_03').find('.user-avatar').html('<span>3</span>').addClass('bg-light')
+                }
+                if (id_address != null){
+                    $('#payment_method').slideToggle(100);
+                }
+            }
 
             $('#setup_01').on('click',function (){
                 id_company = $('#shipping_company').find('input[type="radio"]:checked').val()
@@ -245,6 +339,21 @@
                         }
                     }
                 });
+
+                    $('#payment_method').slideUp(300, function() {
+                        if ($('#payment_method').is(':visible')) {
+                            $('#setup_03').find('.user-avatar').html('<span class="fs-14px">3</span>').removeClass('bg-light')
+                        } else {
+                            if (id_payment != null)
+                            {
+                                $('#setup_03').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
+                            }else {
+                                $('#setup_03').find('.user-avatar').html('<span>3</span>').addClass('bg-light')
+
+                            }
+                        }
+                    });
+
 
                 $('#shipping_address').slideToggle(300, function() {
                     if ($('#shipping_address').is(':visible')) {
@@ -281,6 +390,22 @@
                         }
                     });
 
+
+                        $('#payment_method').slideUp(300, function() {
+                            if ($('#payment_method').is(':visible')) {
+                                $('#setup_03').find('.user-avatar').html('<span class="fs-14px">3</span>').removeClass('bg-light')
+                            } else {
+                                if (id_payment != null)
+                                {
+                                    $('#setup_03').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
+                                }else {
+                                    $('#setup_03').find('.user-avatar').html('<span>3</span>').addClass('bg-light')
+
+                                }
+                            }
+                        });
+
+
                     $('#shipping_company').slideToggle(300, function() {
                         if ($('#shipping_company').is(':visible')) {
                             $('#setup_02').find('.user-avatar').html('<span class="fs-14px">2</span>').removeClass('bg-light')
@@ -296,6 +421,57 @@
                     });
                 }
                 id_company = $('#shipping_company').find('input[type="radio"]:checked').val()
+            });
+            $('#setup_03').on('click',function (){
+                id_payment = $('#payment_method').find('input[type="radio"]:checked').val();
+
+
+
+                    $('#shipping_address').slideUp(100, function() {
+                        if ($('#shipping_address').is(':visible')) {
+                            $('#setup_01').find('.user-avatar').html('<span class="fs-14px">1</span>').removeClass('bg-light')
+                        } else {
+                            if (id_address != null)
+                            {
+                                $('#setup_01').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
+                            }else {
+                                $('#setup_01').find('.user-avatar').html('<span>1</span>').addClass('bg-light')
+
+                            }
+                        }
+                    });
+
+                    $('#shipping_company').slideUp(200, function() {
+                        if ($('#shipping_company').is(':visible')) {
+                            $('#setup_02').find('.user-avatar').html('<span class="fs-14px">2</span>').removeClass('bg-light')
+                        } else {
+                            if (id_company != null)
+                            {
+                                $('#setup_02').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
+                            }else {
+                                $('#setup_02').find('.user-avatar').html('<span>2</span>').addClass('bg-light')
+
+                            }
+                        }
+                    });
+
+
+
+                $('#payment_method').slideToggle(300, function() {
+                    if ($('#payment_method').is(':visible')) {
+                        $('#setup_03').find('.user-avatar').html('<span class="fs-14px">3</span>').removeClass('bg-light')
+                    } else {
+                        if (id_payment != null)
+                        {
+                            $('#setup_03').find('.user-avatar').html('<span><em class="icon ni ni-check-thick"></em></span>').addClass('bg-light')
+                        }else {
+                            $('#setup_03').find('.user-avatar').html('<span>3</span>').addClass('bg-light')
+
+                        }
+                    }
+                });
+                id_payment = $('#payment_method').find('input[type="radio"]:checked').val();
+
             });
 
 
@@ -357,11 +533,43 @@
                 beforeSend: function () {
                 },
                 success: function (data) {
-                    $(".shippingCompany").load(location.href + " .shippingCompany");
+                    $(".shipping_company").load(location.href + " .shipping_company");
                     $(".refresh-cart-now").load(location.href + " .refresh-cart-now");
                     $('#setup_01_subtitle').text($('#address_subtitle'+id).text())
+                    $(".Action_submit").load(location.href + " .Action_submit");
+
                     var id_address = $('#shipping_address').find('input[type="radio"]:checked').val();
                 console.log(id_address);
+                },
+                error: function (response) {
+
+
+                },
+                complete: function (response) {
+
+                    // $('#create_new'+id).html('save');
+                }
+            });
+        }
+        function updatePaymentMethod(id) {
+            const csrf = "{{csrf_token()}}";
+
+            $.ajax({
+                type: 'post',
+                url: "{{ route('frontend.updatePaymentMethod')}}",
+                headers: {
+                    'X-CSRF-TOKEN': csrf,
+                },
+                data: {
+                    'id': id,
+                },
+
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    $(".Action_submit").load(location.href + " .Action_submit");
+
+
                 },
                 error: function (response) {
 
@@ -392,6 +600,7 @@
                 success: function (data) {
                     $(".refresh-cart-now").load(location.href + " .refresh-cart-now");
                     $('#setup_02_subtitle').text($('#company_subtitle'+id).text())
+                    $(".Action_submit").load(location.href + " .Action_submit");
 
                     var id_company = $('#shipping_company').find('input[type="radio"]:checked').val();
 

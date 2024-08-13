@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('sandbox_password')->nullable();
             $table->string('sandbox_secret')->nullable();
             $table->boolean('sandbox')->default(false);
+            $table->string('logo')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
 

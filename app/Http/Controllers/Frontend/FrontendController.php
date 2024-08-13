@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\PaymentMethod;
 use App\Models\Backend\ProductCategories;
 use App\Models\Backend\ProductCoupon;
 use App\Models\Backend\ProductReview;
@@ -273,12 +274,16 @@ class FrontendController extends Controller
 
     public function checkout()
     {
+//        session()->forget('saved_payment_method_code');
+
         $data['cart_subtotal'] = getNumbers()->get('subtotal');
         $data['cart_tax'] = getNumbers()->get('productTaxes');
         $data['cart_discount'] = getNumbers()->get('discount');
         $data['cart_shipping'] = getNumbers()->get('shipping');
         $data['cart_total'] = getNumbers()->get('total');
         $data['user_addresses'] = Auth::user()->addresses;
+        $data['payment_methods'] = PaymentMethod::whereStatus(true)->get();
+
 //        session()->forget('saved_customer_address_id');
 //        session()->forget('saved_shipping_company_id');
         return view('frontend.checkout',compact('data'));
@@ -288,8 +293,8 @@ class FrontendController extends Controller
     {
         session()->forget('saved_customer_address_id');
         session()->forget('saved_shipping_company_id');
-        session()->forget('shipping_company');
         session()->forget('shipping');
+
         $addressCounty = UserAddress::whereId($request->id)->first();
         $shipping_companies = ShippingCompany::whereHas('countries', function ($query) use ($addressCounty) {
             $query->where('country_id', $addressCounty->country_id);
@@ -298,7 +303,6 @@ class FrontendController extends Controller
         session()->put('saved_customer_address_id', $request->id);
 
         return response()->json(array('status'=>'success', 'msg'=>'Success!.'), 200);
-
 
     }
     public function getShippingCost(Request $request)
@@ -318,5 +322,24 @@ class FrontendController extends Controller
     }
 
 
+    public function updatePaymentMethod(Request $request)
+    {
+        session()->forget('saved_payment_method_code');
+        session()->forget('saved_payment_method_id');
+
+        $payment_method = PaymentMethod::whereId($request->id)->first();
+
+        session()->put('saved_payment_method_code',$payment_method->code);
+        session()->put('saved_payment_method_id',$payment_method->id);
+
+        return response()->json(array('status'=>'success', 'msg'=>'Success!.'), 200);
+
+
+    }
+
+    public function payment_checkout()
+    {
+        return 'done';
+    }
 
 }

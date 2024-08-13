@@ -51,10 +51,12 @@ Route::group(
     Route::post('/addToWishlist', [FrontendController::class, 'addToWishlist'])->name('frontend.addToWishlist');
     Route::post('/getShippingCompany', [FrontendController::class, 'getShippingCompany'])->name('frontend.getShippingCompany');
     Route::post('/getShippingCost', [FrontendController::class, 'getShippingCost'])->name('frontend.getShippingCost');
+    Route::post('/updatePaymentMethod', [FrontendController::class, 'updatePaymentMethod'])->name('frontend.updatePaymentMethod');
 
 
     Route::group(['middleware' => ['roles', 'role:customer']], function () {
         Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
+        Route::post('/payment/checkout', [FrontendController::class, 'payment_checkout'])->name('checkout.payment');
     });
 });
 
