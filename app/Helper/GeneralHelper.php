@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Backend\Products;
+use App\Models\Backend\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Cache;
 
@@ -71,7 +71,7 @@ function getNumbers()
 function generateNonUniqueSlug(): string
 {
     $today = date('Ymd');
-    $productsNumber = Products::where('slug','like', $today.'%')->pluck('slug');
+    $productsNumber = Product::where('slug','like', $today.'%')->pluck('slug');
     do{
         $productNumber = $today . rand(100000,999999);
     }while ($productsNumber->contains($productNumber));

@@ -4,11 +4,11 @@
 namespace App\Services;
 
 
-use App\Models\Order;
-use App\Models\OrderProduct;
-use App\Models\OrderTransaction;
-use App\Models\Product;
-use App\Models\ProductCoupon;
+use App\Models\Backend\Order;
+
+use App\Models\Backend\OrderProduct;
+use App\Models\Backend\OrderTransaction;
+use App\Models\Backend\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;

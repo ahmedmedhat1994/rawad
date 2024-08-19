@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\ShippingCompanyController;
 use App\Http\Controllers\Backend\SupervisorController;
 use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\paymentController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Backend\ProductReview;
 use Illuminate\Support\Facades\Artisan;
@@ -55,8 +56,26 @@ Route::group(
 
 
     Route::group(['middleware' => ['roles', 'role:customer']], function () {
-        Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
-        Route::post('/payment/checkout', [FrontendController::class, 'payment_checkout'])->name('checkout.payment');
+        Route::get('/dashboard', [\App\Http\Controllers\Frontend\CustomerController::class, 'dashboard'])->name('customer.dashboard');
+        Route::get('/profile', [\App\Http\Controllers\Frontend\CustomerController::class, 'profile'])->name('customer.profile');
+        Route::get('/notifications', [\App\Http\Controllers\Frontend\CustomerController::class, 'notifications'])->name('customer.notifications');
+        Route::get('/orders', [\App\Http\Controllers\Frontend\CustomerController::class, 'orders'])->name('customer.orders');
+        Route::get('/OrdersWaitPaid', [\App\Http\Controllers\Frontend\CustomerController::class, 'OrdersWaitPaid'])->name('customer.OrdersWaitPaid');
+        Route::get('/favorite', [\App\Http\Controllers\Frontend\CustomerController::class, 'favorite'])->name('customer.favorite');
+        Route::patch('/profile', [\App\Http\Controllers\Frontend\CustomerController::class, 'update_profile'])->name('customer.update_profile');
+        Route::get('/profile/remove-image', [\App\Http\Controllers\Frontend\CustomerController::class, 'remove_profile_image'])->name('customer.remove_profile_image');
+        Route::get('/addresses', [\App\Http\Controllers\Frontend\CustomerController::class, 'addresses'])->name('customer.addresses');
+
+        Route::get('/orders', [\App\Http\Controllers\Frontend\CustomerController::class, 'orders'])->name('customer.orders');
+
+        Route::group(['middleware' => 'check_cart'], function () {
+            Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
+            Route::post('/checkout/payment', [PaymentController::class, 'checkout_now'])->name('checkout.payment');
+            Route::get('/checkout/{order_id}/cancelled', [PaymentController::class, 'cancelled'])->name('checkout.cancel');
+            Route::get('/checkout/{order_id}/completed', [PaymentController::class, 'completed'])->name('checkout.complete');
+            Route::get('/checkout/webhook/{order?}/{env?}', [PaymentController::class, 'webhook'])->name('checkout.webhook.ipn');
+        });
+
     });
 });
 
@@ -133,6 +152,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('payment_methods/delete/{id}', [PaymentMethodController::class,'destroy']);
         Route::resource('payment_methods',PaymentMethodController::class);
         /** End Payment Method  */
+
+
+        /** Orders */
+        Route::get('orders/delete/{id}', [\App\Http\Controllers\Backend\OrderController::class,'destroy']);
+        Route::resource('orders', \App\Http\Controllers\Backend\OrderController::class);
+        /** End Orders  */
 
     });
 });

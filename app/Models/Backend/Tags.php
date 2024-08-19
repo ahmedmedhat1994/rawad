@@ -54,7 +54,7 @@ class Tags extends Model
 
     public function products(): morphToMany
     {
-        return $this->morphedByMany(Products::class,'taggable');
+        return $this->morphedByMany(Product::class,'taggable');
     }
 
     public function statusLabel()

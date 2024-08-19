@@ -7,7 +7,7 @@ use App\Http\Requests\backend\productRequest;
 use App\Http\Requests\Backend\ProductsRequest;
 use App\Models\Backend\Media;
 use App\Models\Backend\ProductCategories;
-use App\Models\Backend\Products;
+use App\Models\Backend\Product;
 use App\Models\Backend\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +28,7 @@ class ProductController extends Controller
                 }
 
 
-                $products = Products::with('category','tags','firstMedia')
+                $products = Product::with('category','tags','firstMedia')
                     ->when(\request()->keywords != null, function ($query) {
                         $query->search(\request()->keywords);
                     })
@@ -138,7 +138,7 @@ class ProductController extends Controller
         try {
 
             $today = date('Ymd');
-            $productsNumber = Products::where('slug','like', $today.'%')->pluck('slug');
+            $productsNumber = Product::where('slug','like', $today.'%')->pluck('slug');
             do{
                 $productNumber = $today . rand(100000,999999);
             }while ($productsNumber->contains($productNumber));
@@ -153,7 +153,7 @@ class ProductController extends Controller
             $input['status'] = $request->status;
             $input['sale_price'] = $request->sale_price;
 
-            $product=Products::create($input);
+            $product=Product::create($input);
 
 
 
@@ -212,7 +212,7 @@ class ProductController extends Controller
         if (!auth()->user()->ability('admin', 'update_products')) {
             return redirect('admin/index');
         }
-        $product=Products::findOrFail($id);
+        $product=Product::findOrFail($id);
         $categories = ProductCategories::whereStatus(1)->get(['id','name']);
         $tags = Tags::whereStatus(1)->get(['id','name']);
         return view('backend.products.edit',compact('categories','tags','product'));
@@ -239,7 +239,7 @@ class ProductController extends Controller
             $input['status'] = $request->status;
             $input['sale_price'] = $request->sale_price;
 
-            $product =Products::findOrFail($request->id);
+            $product =Product::findOrFail($request->id);
 
             $product->update($input);
 
@@ -342,7 +342,7 @@ class ProductController extends Controller
             return redirect('admin/index');
         }
 
-        $product = Products::findOrFail($id);
+        $product = Product::findOrFail($id);
 
 
         if ($product->colors->count() > 0) {

@@ -18,7 +18,7 @@ use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Translatable\HasTranslations;
 
-class Products extends Model
+class Product extends Model
 {
     use HasFactory,SoftDeletes;
     use HasTranslations, HasTranslatableSlug;
@@ -161,7 +161,7 @@ class Products extends Model
 
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class)->withPivot('quantity');
+        return $this->belongsToMany(Order::class,'order_products')->withPivot('quantity');
     }
 
 }

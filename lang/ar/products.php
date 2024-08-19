@@ -48,6 +48,11 @@ return [
     'description'=>'وصف المنتج',
     'choice color'=>'اختار الوان المنتج',
     'choice size'=>'اختار مقاسات المنتج',
+    'ref id'=>'رقم الطلب',
+    'user'=>'اسم العميل',
+    'payment method'=>'طريقة الدفع',
+    'amount'=>'الاجمالي',
+    'create'=>'تاريخ الطلب',
 
 
 ];

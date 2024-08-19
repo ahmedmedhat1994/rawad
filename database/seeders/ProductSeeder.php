@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Backend\ProductCategories;
-use App\Models\Backend\Products;
+use App\Models\Backend\Product;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Faker\Factory;
@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
 
         $chunks = array_chunk($products, 100);
         foreach ($chunks as $chunk) {
-            Products::insert($chunk);
+            Product::insert($chunk);
         }
     }
 }

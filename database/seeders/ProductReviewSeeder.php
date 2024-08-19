@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Backend\Products;
+use App\Models\Backend\Product;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -20,7 +20,7 @@ class ProductReviewSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         $faker = Factory::create();
 
-        Products::all()->each(function ($product) use ($faker) {
+        Product::all()->each(function ($product) use ($faker) {
             for ($i = 1; $i < rand(1, 3); $i++) {
                 $product->reviews()->create([
                     'user_id' => rand(3, 50),

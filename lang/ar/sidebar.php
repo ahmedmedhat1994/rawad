@@ -28,4 +28,5 @@ return [
     'Customer Addresses' => 'عناوين العملاء',
     'Shipping Companies' => 'شركات الشحن',
     'Payment Methods' => 'وسائل الدفع',
+    'orders' => 'الطلبات',
 ];

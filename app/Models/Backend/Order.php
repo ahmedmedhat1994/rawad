@@ -13,7 +13,11 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'quantity',
+    ];
 
 
     const NEW_ORDER = 0;
@@ -43,7 +47,7 @@ class Order extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Products::class)->withPivot('quantity');
+        return $this->belongsToMany(Product::class,'order_products')->withPivot('quantity');
     }
 
     public function transactions(): HasMany
@@ -82,15 +86,15 @@ class Order extends Model
     public function statusWithLabel()
     {
         switch ($this->order_status) {
-            case 0: $result = '<label class="badge badge-success">New order</label>'; break;
-            case 1: $result = '<label class="badge badge-warning">Paid</label>'; break;
-            case 2: $result = '<label class="badge badge-warning">Under process</label>'; break;
-            case 3: $result = '<label class="badge badge-primary">Finished</label>'; break;
-            case 4: $result = '<label class="badge badge-danger">Rejected</label>'; break;
-            case 5: $result = '<label class="badge badge-dark text-white">Canceled</label>'; break;
-            case 6: $result = '<label class="badge bg-dark text-white">Refund requested</label>'; break;
-            case 7: $result = '<label class="badge bg-slate">Returned order</label>'; break;
-            case 8: $result = '<label class="badge bg-dark text-white">Refunded order</label>'; break;
+            case 0: $result = '<span class="badge badge-dot  bg-success">New order</span>'; break;
+            case 1: $result = '<span class="badge badge-dot bg-warning">Paid</span>'; break;
+            case 2: $result = '<span class="badge badge-dot bg-warning">Under process</span>'; break;
+            case 3: $result = '<span class="badge badge-dot bg-primary">Finished</span>'; break;
+            case 4: $result = '<span class="badge badge-dot bg-danger">Rejected</span>'; break;
+            case 5: $result = '<span class="badge badge-dot bg-dark text-white">Canceled</span>'; break;
+            case 6: $result = '<span class="badge badge-dot bg-dark text-white">Refund requested</span>'; break;
+            case 7: $result = '<span class="badge badge-dot bg-slate">Returned order</span>'; break;
+            case 8: $result = '<span class="badge badge-dot bg-dark text-white">Refunded order</span>'; break;
         }
         return $result;
     }

@@ -42,5 +42,7 @@ return [
     'customer_addresses' => 'عناوين العملاء',
     'create customer addresses' => 'اضافة عنوان عميل',
     'Payment Methods' => 'طرق الدفع',
+    'orders' => 'الطلبات',
+    'show order' => 'عرض الطلب',
 
 ];

@@ -7,7 +7,7 @@ use App\Models\Backend\PaymentMethod;
 use App\Models\Backend\ProductCategories;
 use App\Models\Backend\ProductCoupon;
 use App\Models\Backend\ProductReview;
-use App\Models\Backend\Products;
+use App\Models\Backend\Product;
 use App\Models\Backend\ShippingCompany;
 use App\Models\Backend\Tags;
 use App\Models\Backend\UserAddress;
@@ -22,11 +22,11 @@ class FrontendController extends Controller
     {
 
         $product_categories = ProductCategories::withCount('products')->whereStatus(1)->whereNull('parent_id')->inRandomOrder()->get();
-        $featuredProducts = Products::with('firstMedia')
+        $featuredProducts = Product::with('firstMedia')
             ->inRandomOrder()->Featured()->Active()->HasQuantity()->ActiveCategory()
             ->take(8)->get();
 
-        $arrivalProducts = Products::with('firstMedia')
+        $arrivalProducts = Product::with('firstMedia')
             ->inRandomOrder()->Active()->HasQuantity()->ActiveCategory()
             ->get();
 
@@ -40,7 +40,7 @@ class FrontendController extends Controller
 
     public function shop(Request $request,$slug = null)
     {
-        $products = Products::with('firstMedia');
+        $products = Product::with('firstMedia');
         if ($slug == '') {
             $products = $products->ActiveCategory();
         } else {
@@ -86,7 +86,7 @@ class FrontendController extends Controller
 
     public function shop_tag(Request $request,$slug = null)
     {
-        $products = Products::with('firstMedia');
+        $products = Product::with('firstMedia');
 
         $products = $products->with('tags')->whereHas('tags', function ($query) use ($slug) {
             $query->where([
@@ -116,10 +116,10 @@ class FrontendController extends Controller
 
     public function product($slug)
     {
-        $product = Products::with('attachments', 'category', 'tags', 'reviews')->withAvg('reviews', 'rating')->whereSlug($slug)
+        $product = Product::with('attachments', 'category', 'tags', 'reviews')->withAvg('reviews', 'rating')->whereSlug($slug)
             ->Active()->HasQuantity()->ActiveCategory()->first();
 
-        $relatedProducts = Products::with('firstMedia')->whereHas('category', function ($query) use ($product) {
+        $relatedProducts = Product::with('firstMedia')->whereHas('category', function ($query) use ($product) {
             $query->whereId($product->product_category_id);
             $query->whereStatus(true);
         })->inRandomOrder()->Active()->HasQuantity()->take(4)->get();
@@ -143,7 +143,7 @@ class FrontendController extends Controller
     public function addToCart(Request $request)
     {
 
-        $product =Products::findOrFail($request->id);
+        $product =Product::findOrFail($request->id);
 
         if ($request->qty != null)
         {
@@ -162,7 +162,7 @@ class FrontendController extends Controller
             return response()->json(array('status'=>'error', 'msg'=>'Error!'), 500);
         } else {
             Cart::instance('default')->add(['id' => $product->id, 'name' => $product->name, 'qty' => $qty, 'price' => $request->price, 'options' => ['size' => $request->size,'color'=>$request->color]]
-            )->associate(Products::class);
+            )->associate(Product::class);
 
             return response()->json(array('status'=>'success', 'msg'=>'Success!.'), 200);
         }
@@ -215,7 +215,7 @@ class FrontendController extends Controller
     public function addToWishlist(Request $request)
     {
 
-        $product =Products::findOrFail($request->id);
+        $product =Product::findOrFail($request->id);
 
 
 
@@ -227,7 +227,7 @@ class FrontendController extends Controller
             return response()->json(array('status'=>'error', 'msg'=>'Error!'), 500);
         } else {
             Cart::instance('wishlist')->add(['id' => $product->id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price]
-            )->associate(Products::class);
+            )->associate(Product::class);
 
             return response()->json(array('status'=>'success', 'msg'=>'Success!.'), 200);
         }

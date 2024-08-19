@@ -3,6 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Order;
+use App\Models\Backend\OrderTransaction;
+use App\Models\Backend\ProductCoupon;
+use App\Models\Backend\Product;
+use App\Models\User;
+use App\Services\OmnipayService;
+use App\Services\OrderService;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class paymentController extends Controller

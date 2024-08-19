@@ -543,7 +543,7 @@
 
                     @guest
                         <li class="dropdown">
-                            <a href="{{route('frontend.cart')}}" >
+                            <a href="{{route('customer.profile')}}" >
                                 <div class="user-toggle">
                                     <div class="user-avatar sm bg-body">
                                         <span><em class="icon ni ni-user-switch fs-1 text-black"></em></span>
@@ -553,7 +553,7 @@
                         </li><!-- .dropdown -->
                     @else
                     <li class="dropdown user-dropdown">
-                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                        <a href="{{route('customer.profile')}}" class="dropdown-toggle" data-bs-toggle="dropdown">
                             <div class="user-toggle">
                                 <div class="user-avatar sm bg-body">
                                     <span><em class="icon ni ni-user-alt fs-1 text-black"></em></span>
@@ -579,11 +579,11 @@
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <li><a href="html/user-profile-regular.html"><em class="icon ni ni-bell"></em><span>{{trans('frontend.notifications')}}</span></a></li>
-                                    <li><a href="html/user-profile-setting.html"><em class="icon ni ni-archived"></em><span>{{trans('frontend.orders')}}</span></a></li>
-                                    <li><a href="html/user-profile-activity.html"><em class="icon ni ni-cart"></em><span>{{trans('frontend.Orders wait Paid')}}</span></a></li>
-                                    <li><a href="html/user-profile-activity.html"><em class="icon ni ni-star"></em><span>{{trans('frontend.favorite')}}</span></a></li>
-                                    <li><a href="html/user-profile-activity.html"><em class="icon ni ni-user"></em><span>{{trans('frontend.my profile')}}</span></a></li>
+                                    <li><a href="{{route('customer.notifications')}}"><em class="icon ni ni-bell"></em><span>{{trans('frontend.notifications')}}</span></a></li>
+                                    <li><a href="{{route('customer.orders')}}"><em class="icon ni ni-archived"></em><span>{{trans('frontend.orders')}}</span></a></li>
+                                    <li><a href="{{route('customer.OrdersWaitPaid')}}"><em class="icon ni ni-cart"></em><span>{{trans('frontend.Orders wait Paid')}}</span></a></li>
+                                    <li><a href="{{route('customer.favorite')}}"><em class="icon ni ni-star"></em><span>{{trans('frontend.favorite')}}</span></a></li>
+                                    <li><a href="{{route('customer.profile')}}"><em class="icon ni ni-user"></em><span>{{trans('frontend.my profile')}}</span></a></li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">

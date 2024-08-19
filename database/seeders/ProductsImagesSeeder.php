@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Backend\ProductCategories;
-use App\Models\Backend\Products;
+use App\Models\Backend\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -17,7 +17,7 @@ class ProductsImagesSeeder extends Seeder
     public function run()
     {
 
-        $products = Products::whereStatus(true)->pluck('id');
+        $products = Product::whereStatus(true)->pluck('id');
 
         $images[] = ['filename' => '01.jpg', 'mime' => 'image/jpg', 'size' => rand(100, 900), 'uid' => asset('uploads/products'.'/01.jpg'), 'attachable_id' => $products->random(),'attachable_type' => 'App/Models/Backend/products'];
         $images[] = ['filename' => '02.jpg', 'mime' => 'image/jpg', 'size' => rand(100, 900), 'uid' => asset('uploads/products'.'/02.jpg'), 'attachable_id' => $products->random(),'attachable_type' => 'App/Models/Backend/products'];
@@ -29,7 +29,7 @@ class ProductsImagesSeeder extends Seeder
         $images[] = ['filename' => '08.jpg', 'mime' => 'image/jpg', 'size' => rand(100, 900), 'uid' => asset('uploads/products'.'/08.jpg'), 'attachable_id' => $products->random(),'attachable_type' => 'App/Models/Backend/products'];
 
 
-        Products::all()->each(function ($product) use ($images) {
+        Product::all()->each(function ($product) use ($images) {
             $product->attachments()->createMany(Arr::random($images, rand(2, 3)));
         });
 

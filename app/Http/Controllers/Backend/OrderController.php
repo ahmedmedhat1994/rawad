@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use App\Models\Backend\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -64,6 +64,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
 
+
         $order_status_array = [
             '0' => 'New order',
             '1' => 'Paid',
@@ -118,7 +119,7 @@ class OrderController extends Controller
         if (!auth()->user()->ability('admin', 'update_orders')) {
             return redirect('admin/index');
         }
-
+            
         $order->update(['order_status'=> $request->order_status]);
 
         $order->transactions()->create([

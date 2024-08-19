@@ -39,6 +39,14 @@ return [
     'address shipping' => 'عنوان الشحن',
     'shipping company' => 'شركة الشحن',
     'payment method' => 'الدفع',
+    'first name'=>'الاسم الاول',
+    'last name'=>'الاسم الثاني',
+    'email'=>'البريد الالكتروني',
+    'save'=>'حفظ',
 
+    'order no'=>'رقم الطلب',
+    'total'=>'المجموع',
+    'data'=>'تاريخ الطلب',
+    'order status'=>'حالة الطلب',
 
 ];
