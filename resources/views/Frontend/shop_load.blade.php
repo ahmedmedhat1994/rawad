@@ -12,12 +12,12 @@
             </div>
             <div class="card-inner text-center">
                 <h6 class="product-title"><a href="{{route('frontend.product',$product->slug)}}">{{$product->name}}</a></h6>
-                @if(isset($product->sale_price))
+                @if(isset($product->sale_price)&& $product->sale_price > 0 )
                     <div class="product-price text-primary h6" ><small class="text-muted del fs-13px">{{$product->price}}  ر.س</small> {{$product->sale_price}} ر.س</div>
                 @else
                     <div class="product-price text-primary h6" >{{$product->price}}  ر.س</div>
                 @endif
-                <input type="hidden" id="price{{$product->id}}" value="{{(isset($product->sale_price) ? $product->sale_price : $product->price)}}">
+                <input type="hidden" id="price{{$product->id}}" value="{{(isset($product->sale_price) && $product->sale_price > 0  ? $product->sale_price : $product->price)}}">
                 <a href="javascript:void(0)" id="add_to_cart{{$product->id}}" onclick="addToCart({{$product->id}})" class="btn  btn-dim btn-lg btn-outline-secondary btn-action mt-2"><em class="icon ni ni-bag"></em><span>{{trans('frontend.Add to cart')}}</span></a>
 
             </div>

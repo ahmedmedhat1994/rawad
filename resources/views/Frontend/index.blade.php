@@ -65,7 +65,7 @@
                                             </div>
                                             <div class="card-inner text-center">
                                                 <h6 class="product-title"><a href="{{route('frontend.product',$product->slug)}}">{{$product->name}}</a></h6>
-                                                @if(isset($product->sale_price))
+                                                @if(isset($product->sale_price)&& $product->sale_price > 0 )
                                                 <div class="product-price text-primary h6" ><small class="text-muted del fs-13px">{{$product->price}}  ر.س</small> {{$product->sale_price}} ر.س</div>
                                                 @else
                                                     <div class="product-price text-primary h6" >{{$product->price}}  ر.س</div>
@@ -114,8 +114,7 @@
                                                 </div>
                                                 <div class="card-inner text-center">
                                                     <h6 class="product-title"><a href="{{route('frontend.product',$product->slug)}}">{{$product->name}}</a></h6>
-                                                    @if(isset($product->sale_price))
-                                                        <div class="product-price text-primary h6" ><small class="text-muted del fs-13px">{{$product->price}}  ر.س</small> {{$product->sale_price}} ر.س</div>
+                                                    @if(isset($product->sale_price)&& $product->sale_price > 0 )                                                        <div class="product-price text-primary h6" ><small class="text-muted del fs-13px">{{$product->price}}  ر.س</small> {{$product->sale_price}} ر.س</div>
                                                     @else
                                                         <div class="product-price text-primary h6" >{{$product->price}}  ر.س</div>
                                                     @endif

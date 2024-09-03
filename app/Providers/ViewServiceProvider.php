@@ -33,7 +33,8 @@ class ViewServiceProvider extends ServiceProvider
                 if (!Cache::has('shop_categories_menu')) {
                     Cache::forever('shop_categories_menu', ProductCategories::tree());
                 }
-                $shop_categories_menu = Cache::get('shop_categories_menu');
+//                $shop_categories_menu = Cache::get('shop_categories_menu');
+                $shop_categories_menu = ProductCategories::tree();
 
                 if (!Cache::has('shop_tags_menu')) {
                     Cache::forever('shop_tags_menu', Tags::whereStatus(true)->get());

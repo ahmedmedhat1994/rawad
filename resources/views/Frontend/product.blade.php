@@ -62,7 +62,7 @@
                                     </div><!-- .col -->
                                     <div class="col-lg-6 col-xxl-5">
                                         <div class="product-info mt-5 me-xxl-5">
-                                            @if(isset($product->sale_price))
+                                            @if(isset($product->sale_price)&& $product->sale_price > 0 )
                                             <h4 class="product-price text-primary">{{$product->sale_price}}  ر.س <small class="text-muted fs-14px">{{$product->price}} ر.س</small></h4>
                                             @else
                                                 <h4 class="product-price text-primary">{{$product->price}} ر.س</h4>
@@ -95,7 +95,7 @@
                                                 </ul>
                                             </div>
                                                 <div class="product-meta font-xs mb-30" style="direction: rtl !important;">
-                                                    <input type="hidden" value="{{isset($product->sale_price) ? $product->sale_price : $product->price}}" id="orig_price">
+                                                    <input type="hidden" value="{{isset($product->sale_price) && $product->sale_price > 0 ? $product->sale_price : $product->price}}" id="orig_price">
                                                     <ul>
                                                         <li class="mb-3">
                                                             <div class="position-relative border border-light rounded p-3 row tammaraModal"
@@ -177,7 +177,7 @@
                                                         </div>
                                                     </li>
                                                     <li>
-                                                        <a href="javascript:void(0)" class="btn    btn-lighter  "><span>السعر:</span> <span class="mx-5" id="price-value">{{isset($product->sale_price)? $product->sale_price : $product->price}}</span></a>
+                                                        <a href="javascript:void(0)" class="btn    btn-lighter  "><span>السعر:</span> <span class="mx-5" id="price-value">{{isset($product->sale_price) && $product->sale_price > 0? $product->sale_price : $product->price}}</span></a>
                                                     </li>
                                                     <li>
                                                         <a href="javascript:void(0)" id="add_to_cart{{$product->id}}" onclick="addToCart({{$product->id}})" class="btn  btn-dim  btn-outline-secondary btn-action "><em class="icon ni ni-bag"></em><span>{{trans('frontend.Add to cart')}}</span></a>
@@ -192,7 +192,8 @@
                                     </div><!-- .col -->
                                 </div><!-- .row -->
                                 <hr class="hr border-light">
-
+                                    <h3>الوصف</h3>
+                                <div>{!! $product->description !!}</div>
                             </div>
                         </div>
                     </div><!-- .nk-block -->
@@ -277,12 +278,12 @@
                                         </div>
                                         <div class="card-inner text-center">
                                             <h6 class="product-title"><a href="{{route('frontend.product',$product->slug)}}">{{$product->name}}</a></h6>
-                                            @if(isset($product->sale_price))
+                                            @if(isset($product->sale_price)&& $product->sale_price > 0 )
                                                 <div class="product-price text-primary h6" ><small class="text-muted del fs-13px">{{$product->price}}  ر.س</small> {{$product->sale_price}} ر.س</div>
                                             @else
                                                 <div class="product-price text-primary h6" >{{$product->price}}  ر.س</div>
                                             @endif
-                                            <input type="hidden" id="price{{$product->id}}" value="{{(isset($product->sale_price) ? $product->sale_price : $product->price)}}">
+                                            <input type="hidden" id="price{{$product->id}}" value="{{(isset($product->sale_price) && $product->sale_price > 0  ? $product->sale_price : $product->price)}}">
                                             <a href="javascript:void(0)" id="add_to_cart{{$product->id}}" onclick="addToCart({{$product->id}})" class="btn  btn-dim btn-lg btn-outline-secondary btn-action mt-2"><em class="icon ni ni-bag"></em><span>{{trans('frontend.Add to cart')}}</span></a>
                                             <a  href="javascript:void(0)" onclick="addToWishlist({{$product->id}})" class="btn btn-icon btn-lg btn-outline-primary mt-2"><em class="icon ni ni-star"></em></a>
 

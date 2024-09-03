@@ -99,7 +99,7 @@
                                         </h5>
                                         <div style="padding-top: 10px !important;">
                                             <div class="product-price">
-                                                @if($product->sale_price != null)
+                                                @if(isset($product->sale_price)&& $product->sale_price > 0 )
                                                     <span id="price{{$product->id}}">{{$product->sale_price}}</span>
                                                     <span>ر.س</span>
                                                     <span class="old-price">{{$product->price}}ر.س</span>
