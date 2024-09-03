@@ -26,7 +26,7 @@
                 <ul class="nk-menu nk-menu-main ui-s2">
                     @foreach($shop_categories_menu as $cat)
                     <li class="nk-menu-item has-sub">
-                        <a href="html/index.html" class="nk-menu-link">
+                        <a href="{{route('frontend.shop',$cat->slug)}}" class="nk-menu-link">
                             <span class="nk-menu-text">{{$cat->name}}</span>
                         </a>
                     </li><!-- .nk-menu-item -->

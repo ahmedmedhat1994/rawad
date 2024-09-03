@@ -40,11 +40,13 @@ class FrontendController extends Controller
 
     public function shop(Request $request,$slug = null)
     {
+
         $products = Product::with('firstMedia');
+
         if ($slug == '') {
             $products = $products->ActiveCategory();
         } else {
-            $product_category = ProductCategories::whereSlug($slug)->whereStatus(true)->first();
+            $product_category = ProductCategories::whereSlug($slug)->whereStatus(1)->first();
 
             if (is_null($product_category->parent_id)) {
                 $categoriesIds = ProductCategories::whereParentId($product_category->id)
@@ -160,7 +162,7 @@ class FrontendController extends Controller
 
         if ($duplicates->isNotEmpty()) {
             return response()->json(array('status'=>'error', 'msg'=>'Error!'), 500);
-        } else {
+        }else {
             Cart::instance('default')->add(['id' => $product->id, 'name' => $product->name, 'qty' => $qty, 'price' => $request->price, 'options' => ['size' => $request->size,'color'=>$request->color]]
             )->associate(Product::class);
 
@@ -225,7 +227,7 @@ class FrontendController extends Controller
 
         if ($duplicates->isNotEmpty()) {
             return response()->json(array('status'=>'error', 'msg'=>'Error!'), 500);
-        } else {
+        }else {
             Cart::instance('wishlist')->add(['id' => $product->id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price]
             )->associate(Product::class);
 
@@ -245,7 +247,7 @@ class FrontendController extends Controller
             $coupon = ProductCoupon::whereCode($request->coupon_code)->whereStatus(true)->first();
             if(!$coupon) {
                 return response()->json(array('status'=>'error', 'msg'=>'Coupon is invalid'), 500);
-            } else {
+            }else {
                 $couponValue = $coupon->discount($cart_subtotal);
                 if ($couponValue > 0) {
                     session()->put('coupon', [
@@ -255,11 +257,11 @@ class FrontendController extends Controller
                     ]);
                     $coupon_code = session()->get('coupon')['code'];
                     return response()->json(array('status'=>'success', 'msg'=>'coupon is applied successfully'), 200);
-                } else {
+                }else {
                     return response()->json(array('status'=>'error', 'msg'=>'product coupon is invalid'), 500);
                 }
             }
-        } else {
+        }else {
             return response()->json(array('status'=>'error', 'msg'=>'No products available in your cart'), 500);
         }
     }
