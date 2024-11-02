@@ -80,6 +80,43 @@ function generateNonUniqueSlug(): string
 }
 
 
+if (!function_exists('whatsapp'))
+{
+    function whatsapp ($api, $number, $message)
+    {
+        $curl = curl_init();
+        $postdata = array(
+            "contact" => array(
+                array(
+                    "number" => "966".$number,
+                    "message" => $message
+                ),
+            )
+        );
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.hayah.care/api/whatsapp/send',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>json_encode($postdata),
+            CURLOPT_HTTPHEADER => array(
+                'Api-key:'.$api,
+                'Content-Type: application/json'
+            )
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+    }
+};
+
+
+
 
 
 

@@ -118,7 +118,47 @@
 </div>
 <!-- app-root @e -->
 
-<!-- JavaScript -->
+<!-- Modal login Code -->
+<div class="modal fade" tabindex="-1" id="loginModal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                <em class="icon ni ni-cross"></em>
+            </a>
+            <div class="modal-header">
+                <h5 class="modal-title">Login with Phone</h5>
+            </div>
+            <div class="modal-body">
+                <!-- نموذج إرسال كود OTP -->
+                <form id="otp-form">
+                    @csrf
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" name="phone" id="phone" required placeholder="Enter your phone number">
+                        <div id="phoneError" class="alert alert-danger mt-2" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary btn-block" onclick="sendOTP()">Send OTP</button>
+                    </div>
+                </form>
+
+                <!-- نموذج تأكيد OTP -->
+                <form id="verify-otp-form" style="display: none;">
+                    @csrf
+                    <div class="form-group">
+                        <label for="otp" class="form-label">OTP Code</label>
+                        <input type="text" class="form-control" name="otp" id="otp" required placeholder="Enter OTP code">
+                        <div id="otpError" class="alert alert-danger mt-2" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success btn-block" onclick="verifyOTP()">Verify & Login</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div><!-- JavaScript -->
 @include('Frontend.layout.script')
 @yield('script')
 <link rel="stylesheet" href="{{asset('backend/css/editors/summernote.css')}}">
@@ -126,6 +166,78 @@
 <script src="{{asset('backend/js/libs/editors/summernote.js')}}"></script>
 
 <script src="{{asset('backend/js/editors.js')}}"></script>
+<!-- كود JavaScript لإرسال الطلب باستخدام AJAX -->
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        @if (session('showLoginModal'))
+        // عرض المودال تلقائيًا إذا كانت الجلسة تشير لذلك
+        $('#loginModal').modal('show');
+        @endif
+    });
+
+
+    // دالة لإرسال كود OTP باستخدام AJAX
+    function sendOTP() {
+        const phone = document.getElementById('phone').value;
+        const token = document.querySelector('input[name="_token"]').value;
+
+        fetch("{{ route('send.otp') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": token
+            },
+            body: JSON.stringify({ phone: phone })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('otp-form').style.display = 'none';
+                    document.getElementById('verify-otp-form').style.display = 'block';
+                } else {
+                    displayError('phoneError', data.message || 'Failed to send OTP. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // دالة للتحقق من كود OTP باستخدام AJAX
+    function verifyOTP() {
+        const otp = document.getElementById('otp').value;
+        const token = document.querySelector('input[name="_token"]').value;
+
+        fetch("{{ route('verify.otp') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": token
+            },
+            body: JSON.stringify({ otp: otp })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload(); // إعادة تحميل الصفحة الحالية بعد النجاح
+                } else {
+                    displayError('otpError', data.message || 'Invalid OTP. Please try again.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // دالة لعرض الأخطاء
+    function displayError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.style.display = 'block';
+        errorElement.innerText = message;
+    }
+
+    @if ($errors->any())
+    $('#loginModal').modal('show');
+    @endif
+</script>
+
 
 </body>
 

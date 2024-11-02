@@ -399,7 +399,7 @@
             var color = $('#productColor'+id).val();
             var size = $('#sizeCheck'+id).val();
             var qty = $('#qty-val').val();
-            var price = $('#price-value').text();
+            var price = $('#orig_price').val();
             var priceIs = parseInt(price);
 
             $.ajax({
@@ -433,7 +433,7 @@
                         toast: true,
                         position: "top-end",
                         showConfirmButton: false,
-                        timer: 30000,
+                        timer: 3000,
                         timerProgressBar: true,
                         didOpen: (toast) => {
                             toast.onmouseenter = Swal.stopTimer;

@@ -118,7 +118,7 @@
                                                     @else
                                                         <div class="product-price text-primary h6" >{{$product->price}}  ر.س</div>
                                                     @endif
-                                                    <input type="hidden" id="price{{$product->id}}" value="{{(isset($product->sale_price) ? $product->sale_price : $product->price)}}">
+                                                    <input type="hidden" value="{{isset($product->sale_price) && $product->sale_price > 0 ? $product->sale_price : $product->price}}" id="orig_price{{$product->id}}">
                                                     <a href="javascript:void(0)" id="add_to_cart{{$product->id}}" onclick="addToCart({{$product->id}})" class="btn  btn-dim btn-lg btn-outline-secondary btn-action mt-2"><em class="icon ni ni-bag"></em><span>{{trans('frontend.Add to cart')}}</span></a>
                                                     <a  href="javascript:void(0)" onclick="addToWishlist({{$product->id}})" class="btn btn-icon btn-lg btn-outline-primary mt-2"><em class="icon ni ni-star"></em></a>
 
@@ -249,7 +249,7 @@
             var color = $('#color_id').val();
             var size = $('#size_id').val();
             var qty = $('#qty-val' + id).val();
-            var price = $('#price' + id).val();
+            var price = parseInt($('#orig_price' + id).val());
 
             $.ajax({
                 type: 'post',
@@ -258,9 +258,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    'color': color,
-                    'size': size,
-                    'qty': qty,
+                    'qty': 1,
                     'id': id,
                     'price': price,
                 },

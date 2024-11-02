@@ -39,7 +39,7 @@
 
                     @guest
                         <li class="dropdown">
-                            <a href="{{route('customer.profile')}}" >
+                            <a href="#loginModal" data-bs-toggle="modal" data-bs-target="#loginModal" >
                                 <div class="user-toggle">
                                     <div class="user-avatar sm bg-body">
                                         <span><em class="icon ni ni-user-switch fs-1 text-black"></em></span>
