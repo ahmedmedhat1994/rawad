@@ -72,12 +72,10 @@ Route::group(
             Route::get('/checkout', [FrontendController::class, 'checkout'])->name('frontend.checkout');
             Route::get('states/get_states', [CustomerAddressController::class, 'get_states'])->name('states.get_states');
             Route::get('cities/get_cities', [CustomerAddressController::class, 'get_cities'])->name('cities.get_cities');
+            Route::get('/payments/verify/{payment?}',[PaymentController::class,'verifyWithTap'])->name('verify-payment');
             Route::post('/customer_addresses/store', [FrontendController::class, 'addNewAddress'])->name('customer_addresses.store');
             Route::post('/checkout/payment', [PaymentController::class, 'checkout_now'])->name('checkout.payment');
-            Route::get('/payments/verify/{payment?}',[FrontController::class,'payment_verify'])->name('verify-payment');
-            Route::get('/checkout/{order_id}/cancelled', [PaymentController::class, 'cancelled'])->name('checkout.cancel');
-            Route::get('/checkout/{order_id}/completed', [PaymentController::class, 'completed'])->name('checkout.complete');
-            Route::get('/checkout/webhook/{order?}/{env?}', [PaymentController::class, 'webhook'])->name('checkout.webhook.ipn');
+
         });
 
     });

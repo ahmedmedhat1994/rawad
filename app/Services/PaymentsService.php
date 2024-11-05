@@ -44,11 +44,19 @@ class PaymentsService
 
 public function sendPayment($data)
 {
-    $response = $this->buildRequest('/v2/invoices/','post',$data);
-
+    $response = $this->buildRequest('/v2/authorize/','post',$data);
     return $response;
-
 }
+
+    public function getCancelUrl($order_id)
+    {
+        return route('checkout.cancel', $order_id);
+    }
+
+    public function getReturnUrl($order_id)
+    {
+        return route('checkout.complete', $order_id);
+    }
 
 
 }

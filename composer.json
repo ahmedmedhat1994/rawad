@@ -18,14 +18,13 @@
         "mindscms/entrust": "^2.6",
         "mindscms/laravelshoppingcart": "^2.1",
         "myfatoorah/omnipay": "^3.2",
-        "nafezly/payments": "^2.7",
+        "nafezly/payments": "dev-master",
         "nicolaslopezj/searchable": "1.*",
         "paylinksa/laravel": "^2.0",
         "predis/predis": "^2.2",
         "realrashid/sweet-alert": "^7.1",
         "spatie/laravel-sluggable": "^3.6",
-        "spatie/laravel-translatable": "^6.6",
-      "ext-http": "*"
+        "spatie/laravel-translatable": "^6.6"
     },
     "require-dev": {
          "fakerphp/faker": "^1.9.1",

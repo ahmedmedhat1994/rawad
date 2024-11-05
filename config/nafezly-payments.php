@@ -47,9 +47,9 @@ return [
     'THAWANI_PUBLISHABLE_KEY' => env('THAWANI_PUBLISHABLE_KEY', ''),
 
     #TAP
-    'TAP_CURRENCY' => env('TAP_CURRENCY',"SAR"),
-    'TAP_SECRET_KEY'=>env('TAP_SECRET_KEY','71bbba7b-bcbb-3d8b-97cc-cf4b6cf27ebe'),
-    'TAP_PUBLIC_KEY'=>env('TAP_PUBLIC_KEY','APP_ID_1730077501600'),
+    'TAP_CURRENCY' => env('TAP_CURRENCY',"KWD"),
+    'TAP_SECRET_KEY'=>env('TAP_SECRET_KEY','sk_test_XKokBfNWv6FIYuTMg5sLPjhJ'),
+    'TAP_PUBLIC_KEY'=>env('TAP_PUBLIC_KEY','pk_test_EtHFV4BuPQokJT6jiROls87Y'),
     'TAP_LANG_KEY'=>env('TAP_LANG_KEY','ar'),
 
 
