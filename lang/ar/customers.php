@@ -73,7 +73,7 @@ return [
     'review deleted successfully' => 'تم حذف التعليق بنجاح',
     'No reviews Info Found' => 'لا يوجد بيانات لعرضها',
     'You have total' => 'لديك اجمالى',
-    'select state' => 'حدد المحافظة',
+    'select state' => 'حدد الحي',
     'select city' => 'حدد المدينة',
     'Shipping Info' => 'معلومات الشحن',
     'Default Address' => 'عنوان رئيسي',
@@ -82,7 +82,7 @@ return [
     'select Default address'=>'حدد العنوان الرئيسي',
     'yes'=>'نعم',
     'no'=>'لا',
-    'state'=>'المحافظة',
+    'state'=>'الحي',
     'country'=>'الدولة',
     'city'=>'المدينة',
     'address'=>'العنوان',
@@ -93,6 +93,7 @@ return [
     'po_box'=>'صندوق بريد',
     'select country'=>'حدد الدولة',
     'Start typing something to search customer...'=>'ابحث عن العميل بـ ( الاسم الاول او اسم العائلة او البريد الالكترونى او اسم المستخدم )',
-
+    'street'=> 'الشارع',
+'street details'=> 'وصف البيت',
 
 ];

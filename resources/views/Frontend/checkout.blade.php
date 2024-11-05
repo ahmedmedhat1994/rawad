@@ -103,14 +103,13 @@
                                         </div>
                                     </div>
                                     <div class="d-flex  justify-content-center align-items-center ">
-{{--                                        <a href="#" class="btn btn-outline-primary">{{trans('frontend.edit')}}</a>--}}
+                                        <a href="#addNewAddress" data-bs-toggle="modal" data-bs-target="#addNewAddress"  class="btn btn-outline-primary">{{trans('frontend.add new address')}}</a>
                                     </div>
                                 </div>
                                 </div>
                                 <div id="shipping_address" style="display: none;">
                                     @forelse($data['user_addresses'] as $address)
                                         <hr>
-
                                         <div class="pt-2" style="padding-right: 10px;">
                                         <div class="custom-control custom-radio">
                                             <input type="radio"
@@ -218,7 +217,7 @@
                                                            onclick="updatePaymentMethod({{$payment_method->id}})"
                                                            class="custom-control-input">
                                                     <label class="custom-control-label"  for="payment-method-{{ $payment_method->id }}">
-                                                        <img class="logo" src="https://cdn.assets.salla.network/prod/stores/vendor/checkout/images/icons/pay-option-mada.svg" alt="Mada">
+                                                       {{$payment_method->name}}
                                                         <br>
                                                     </label>
                                                 </div>
@@ -265,10 +264,98 @@
     <!-- wrap @e -->
 </div>
 <!-- app-root @e -->
+    <div class="modal fade modal-lg" id="addNewAddress">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{trans('customers.create new customer address')}}</h5>
+                    <a href="" class="close" data-bs-dismiss="modal"
+                       aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('customer_addresses.store')}}" method="post"
+                          class="form-validate is-alter" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row g-gs pb-3">
+                            <input type="hidden" class="form-control" name="user_id" id="user_id" value="{{ old('user_id', \Illuminate\Support\Facades\Auth::id()) }}" readonly>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="country_id">{{trans('customers.country')}}</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select js-select2"  id="country_id" name="country_id" data-search="on" >
+                                            <option value="0" disabled selected>----- {{trans('customers.select country')}}-----</option>
+                                            @foreach($countries as $country)
+                                                <option value="{{$country->id}}" {{ old('country_id') == $country->id ? 'selected' : null }}>{{ $country->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('country_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="state_id">{{trans('customers.city')}}</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select js-select2" name="state_id" id="state_id" data-minimum-results-for-search="Infinity">
+
+                                        </select>
+                                        @error('state_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="state_id">{{trans('customers.state')}}</label>
+                                    <div class="form-control-wrap">
+                                        <select class="form-select js-select2" name="city_id" id="city_id" data-minimum-results-for-search="Infinity">
+
+                                        </select>
+                                        @error('city_id')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="address">{{trans('customers.street')}} </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="address" name="address"
+                                               value="{{ old('address')}}">
+                                        @error('address')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="address">{{trans('customers.street details')}} </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" class="form-control" id="address2" name="address2"
+                                               value="{{ old('address2')}}">
+                                        @error('address2')<span class="text-danger">{{ $message }}</span>@enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary">{{trans('categories.save')}}</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 <!-- JavaScript -->
 @include('Frontend.layout.script')
 @yield('script')
+    <script src="{{asset('backend/js/typehead/bootstrap3-typeahead.min.js')}}">
+    </script>
     <script>
 
         $(document).ready(function() {
@@ -617,6 +704,63 @@
         }
     </script>
 
+
+    <script>
+
+        $(document).ready(function() {
+            $('#country_id').select2();
+            $('#state_id').select2();
+            $('#city_id').select2();
+        });
+
+
+        $(function () {
+
+
+            populateStates();
+            populateCities();
+
+
+            $("#country_id").change(function () {
+                populateStates();
+                populateCities();
+                return false;
+            });
+
+            $("#state_id").change(function () {
+                populateCities();
+                return false;
+            });
+
+            function populateStates()
+            {
+                let countryIdVal = $('#country_id').val() != null ? $('#country_id').val() : '{{ old('country_id') }}';
+                $.get("{{ route('states.get_states') }}", {country_id: countryIdVal}, function (data) {
+                    $('option', $("#state_id")).remove();
+                    $("#state_id").append($('<option disabled selected></option>').val('').html('{{trans('customers.select city')}}'));
+                    $.each(data, function (val, text) {
+                        let selectedVal = text.id == '{{ old('state_id') }}' ? "selected" : "";
+                        $("#state_id").append($('<option ' + selectedVal + '></option>').val(text.id).html(text.name));
+                    });
+                }, "json");
+            }
+
+            function populateCities()
+            {
+                let stateIdVal = $('#state_id').val() != null ? $('#state_id').val() : '{{ old('state_id') }}';
+                $.get("{{ route('cities.get_cities') }}", {state_id: stateIdVal}, function (data) {
+                    $('option', $("#city_id")).remove();
+                    $("#city_id").append($('<option disabled selected></option>').val('').html('{{trans('customers.select state')}}'));
+                    $.each(data, function (val, text) {
+                        let selectedVal = text.id == '{{ old('city_id') }}' ? "selected" : "";
+                        $("#city_id").append($('<option ' + selectedVal + '></option>').val(text.id).html(text.name));
+                    });
+                }, "json");
+            }
+
+
+        });
+    </script>
 </body>
 
 </html>

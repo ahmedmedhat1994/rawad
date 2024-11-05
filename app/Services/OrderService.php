@@ -30,7 +30,7 @@ class OrderService
             'shipping' => getNumbers()->get('shipping'),
             'tax' => getNumbers()->get('productTaxes'),
             'total' => getNumbers()->get('total'),
-            'currency' => 'USD',
+            'currency' => 'SAR',
             'order_status' => 0,
         ]);
 

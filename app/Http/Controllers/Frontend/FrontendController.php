@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Country;
 use App\Models\Backend\PaymentMethod;
 use App\Models\Backend\ProductCategories;
 use App\Models\Backend\ProductCoupon;
@@ -277,6 +278,7 @@ class FrontendController extends Controller
     public function checkout()
     {
 //        session()->forget('saved_payment_method_code');
+        $countries = Country::whereStatus(true)->get(['id','name']);
 
         $data['cart_subtotal'] = getNumbers()->get('subtotal');
         $data['cart_tax'] = getNumbers()->get('productTaxes');
@@ -288,7 +290,8 @@ class FrontendController extends Controller
 
 //        session()->forget('saved_customer_address_id');
 //        session()->forget('saved_shipping_company_id');
-        return view('frontend.checkout',compact('data'));
+
+        return view('frontend.checkout',compact('data','countries'));
     }
 
     public function getShippingCompany(Request $request)
@@ -342,6 +345,23 @@ class FrontendController extends Controller
     public function payment_checkout()
     {
         return 'done';
+    }
+
+    public function addNewAddress(Request $request)
+    {
+        $add = new UserAddress();
+        $add->user_id = Auth::id();
+        $add->first_name = Auth::user()->first_name;
+        $add->last_name =Auth::user()->last_name ;
+        $add->email =Auth::user()->email ;
+        $add->mobile =Auth::user()->mobile ;
+        $add->address = $request->address;
+        $add->address2 = $request->address2;
+        $add->country_id =$request->country_id ;
+        $add->state_id =$request->state_id ;
+        $add->city_id =$request->city_id ;
+        $add->Save();
+        return redirect()->back();
     }
 
 }
